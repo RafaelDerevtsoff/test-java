@@ -68,7 +68,7 @@ class ProductControllerTest {
     fun `should create a new product`() {
         `when`(productService.createProduct(product)).thenReturn(product)
 
-        mockMvc.post("/products/create") {
+        mockMvc.post("/products") {
             contentType = MediaType.APPLICATION_JSON
             content = objectMapper.writeValueAsString(product)
         }.andExpect {

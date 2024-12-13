@@ -18,26 +18,27 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/products")
 class ProductController {
-    @Autowired
-    private lateinit var productService: ProductService
+  @Autowired
+  private lateinit var productService: ProductService
 
-    @GetMapping("/{sku}")
-    fun getProductBySku(@PathVariable sku: Long): ResponseEntity<Product> {
-        return ResponseEntity.ok(productService.getProductBySku(sku = sku))
-    }
+  @GetMapping("/{sku}")
+  fun getProductBySku(@PathVariable sku: Long): ResponseEntity<Product> {
+    return ResponseEntity.ok(productService.getProductBySku(sku = sku))
+  }
 
-    @PostMapping("/create")
-    fun createProduct(@RequestBody product: Product): ResponseEntity<Product> {
-        return ResponseEntity.status(HttpStatus.CREATED).body(productService.createProduct(product = product))
-    }
+  @PostMapping
+  fun createProduct(@RequestBody product: Product): ResponseEntity<Product> {
+    return ResponseEntity.status(HttpStatus.CREATED).body(productService.createProduct(product = product))
+  }
 
-    @PutMapping("/update")
-    fun updateProduct(@RequestBody updateDto: UpdateDto): ResponseEntity<Product> {
-        return ResponseEntity.ok(productService.updateProductBySku(sku = updateDto.sku, product = updateDto.product))
-    }
+  @PutMapping("/update")
+  fun updateProduct(@RequestBody updateDto: UpdateDto): ResponseEntity<Product> {
+    return ResponseEntity.ok(productService.updateProductBySku(sku = updateDto.sku, product = updateDto.product))
+  }
 
-    @DeleteMapping("/delete/{sku}")
-    fun deleteProduct(@PathVariable sku: Long): ResponseEntity<Long> {
-        return ResponseEntity.status(204).body(productService.deleteProductBySku(sku = sku))
-    }
+  @DeleteMapping("/delete/{sku}")
+  fun deleteProduct(@PathVariable sku: Long): ResponseEntity<Long> {
+    productService.deleteProductBySku(sku = sku)
+    return ResponseEntity.noContent().build()
+  }
 }
